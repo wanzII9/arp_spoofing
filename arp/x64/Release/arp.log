@@ -1,0 +1,8 @@
+﻿  arp.c
+c:\users\kisec\source\repos\arp\arp\arp.c(149): warning C4013: 'spoofed_arp_reply'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+c:\users\kisec\source\repos\arp\arp\arp.c(87): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\winsock2.h(1831): note: 'inet_addr' 선언을 참조하십시오.
+c:\users\kisec\source\repos\arp\arp\arp.c(90): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\winsock2.h(1831): note: 'inet_addr' 선언을 참조하십시오.
+c:\users\kisec\source\repos\arp\arp\arp.c(359): warning C4133: '=': 'eth_header *'과(와) 'ether_header *' 사이의 형식이 호환되지 않습니다.
+LINK : fatal error LNK1104: 'wpcap.lib' 파일을 열 수 없습니다.

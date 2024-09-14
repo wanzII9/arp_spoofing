@@ -1,0 +1,11 @@
+﻿  arp.c
+c:\users\kisec\source\repos\arp - 복사본\arp\arp.c(89): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\winsock2.h(1831): note: 'inet_addr' 선언을 참조하십시오.
+c:\users\kisec\source\repos\arp - 복사본\arp\arp.c(92): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\winsock2.h(1831): note: 'inet_addr' 선언을 참조하십시오.
+  코드를 생성하고 있습니다.
+  코드를 생성했습니다.
+  1 of 8 functions (12.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  arp.vcxproj -> C:\Users\kisec\source\repos\arp - 복사본\Release\arp.exe
